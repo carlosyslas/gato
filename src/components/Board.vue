@@ -1,10 +1,11 @@
 <template>
-  <div class="screen board">
+  <div class="board">
     <Tile
       v-for="(tile, index) in tiles"
       v-bind:key="index"
       v-bind:tile="tile"
       v-bind:turn="turn"
+      v-bind:not-winning="winningTiles && winningTiles.indexOf(index) < 0"
       v-on:mark="markTile(index)"
     />
   </div>
@@ -15,7 +16,7 @@ import { mapState, mapGetters, mapActions } from "vuex";
 import Tile from "./Tile";
 
 export default {
-  computed: mapGetters(["tiles", "turn"]),
+  computed: mapGetters(["tiles", "turn", "winningTiles"]),
   methods: mapActions(["markTile"]),
   components: {
     Tile

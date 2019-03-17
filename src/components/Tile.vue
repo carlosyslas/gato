@@ -9,7 +9,7 @@ import { mapActions } from "vuex";
 import { MARKS } from "../constants";
 
 export default {
-  props: ["tile", "turn"],
+  props: ["tile", "turn", "not-winning"],
   methods: mapActions(["markTile"]),
   computed: {
     dynamicClass() {
@@ -17,7 +17,8 @@ export default {
         "turn-x": this.turn === MARKS.x && this.tile === null,
         "tile-x": this.tile === MARKS.x,
         "turn-o": this.turn === MARKS.o && this.tile === null,
-        "tile-o": this.tile === MARKS.o
+        "tile-o": this.tile === MARKS.o,
+        "tile-not-winning": this.notWinning
       };
     },
     content() {

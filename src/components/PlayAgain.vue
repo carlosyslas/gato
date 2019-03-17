@@ -1,8 +1,5 @@
 <template>
-  <div v-if="show" class="screen score" v-bind:class="className">
-    <h2>Congratulations {{winner}}!</h2>
-    <button v-on:click="createNewGame">Play again</button>
-  </div>
+  <button v-if="show" class="fade-in" v-on:click="createNewGame" v-bind:class="className">Play again</button>
 </template>
 
 <script>
@@ -13,7 +10,7 @@ export default {
   computed: {
     ...mapGetters(["winner", "gameStatus"]),
     show() {
-      return this.gameStatus === GAME_STATUS.score || true;
+      return this.gameStatus === GAME_STATUS.score;
     },
     className() {
       return {
@@ -27,20 +24,22 @@ export default {
 </script>
 
 <style scoped>
-.score {
-  padding: 20px;
-  border-radius: 10px;
-}
-h2 {
-  margin: 0;
+.winner-x {
+  color: #e55b5b;
 }
 
-.winner-x {
+.winner-x:hover {
   background: #e55b5b;
+  color: #fffcf2;
 }
 
 .winner-o {
+  color: #25ced1;
+}
+
+.winner-o:hover {
   background: #25ced1;
+  color: #fffcf2;
 }
 
 button {
@@ -58,7 +57,6 @@ button {
 }
 button:hover {
   color: #34344a;
-  background: #ffd23f;
   background: #d2d2d2;
 }
 </style>

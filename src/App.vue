@@ -1,25 +1,19 @@
 <template>
   <div id="app">
-    <NavBar/>
-    <Menu/>
     <Board/>
-    <Score/>
+    <PlayAgain/>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
-import Menu from "./components/Menu";
 import Board from "./components/Board";
-import Score from "./components/Score";
+import PlayAgain from "./components/PlayAgain";
 
 export default {
   name: "app",
   components: {
-    NavBar,
-    Menu,
     Board,
-    Score
+    PlayAgain
   }
 };
 </script>
@@ -27,9 +21,6 @@ export default {
 <style>
 body {
   margin: 0;
-  background: #383838;
-  background: #ffd23f;
-  background: #1f0322;
   background: #34344a;
   color: #fffcf2;
   font-family: "Raleway", cursive;
@@ -38,10 +29,10 @@ body {
 }
 #app {
   width: 320px;
-  margin: 0 auto;
+  margin: 60px auto;
 }
 
-.screen {
+.fade-in {
   animation: fadeIn 0.3s;
 }
 

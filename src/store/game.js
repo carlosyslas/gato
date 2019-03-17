@@ -104,7 +104,7 @@ const actions = {
       (s, current) => s + (current === null ? 1 : 0),
       0
     );
-    const winningTiles = calculateWinningTiles(getters.tiles, position, mark); // TODO: rename to calculate
+    const winningTiles = calculateWinningTiles(getters.tiles, position, mark);
 
     if (winningTiles) {
       commit("setStatus", GAME_STATUS.score);
