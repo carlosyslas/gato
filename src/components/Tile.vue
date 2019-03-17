@@ -82,5 +82,6 @@ export default {
 
 .tile-not-winning {
   filter: blur(5px) grayscale(50%) brightness(0.5) opacity(0.5);
+  transform: scale(0.8);
 }
 </style>

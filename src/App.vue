@@ -23,7 +23,7 @@ body {
   margin: 0;
   background: #34344a;
   color: #fffcf2;
-  font-family: "Raleway", cursive;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
