@@ -44,17 +44,55 @@ const isMainDiagonal = position =>
 const isAntidiagonal = position =>
   position === 2 || position === 4 || position === 6;
 
-const calculateWinningTiles = (tiles, possibleWinningPosition, mark) => {
-  const { row, col } = getCoordsByArrayPosition(possibleWinningPosition);
+const calculateRowWinningTiles = (tiles, position, mark) => {
+  const { row, col } = getCoordsByArrayPosition(position);
 
   const left = getPositionByCoords({ row, col: rounInBounds(col - 1) });
   const right = getPositionByCoords({ row, col: rounInBounds(col + 1) });
+  if (mark === tiles[left] && mark === tiles[right]) {
+    return [left, position, right];
+  }
+
+  return null;
+};
+
+const calculateColumnWinningTiles = (tiles, position, mark) => {
+  const { row, col } = getCoordsByArrayPosition(position);
+
   const up = getPositionByCoords({ row: rounInBounds(row - 1), col });
   const down = getPositionByCoords({ row: rounInBounds(row + 1), col });
+  if (mark === tiles[up] && mark === tiles[down]) {
+    return [up, position, down];
+  }
+
+  return null;
+};
+
+const calculateMainDiagonalWinningTiles = (tiles, position, mark) => {
+  const { row, col } = getCoordsByArrayPosition(position);
+
   const upLeft = getPositionByCoords({
     row: rounInBounds(row - 1),
     col: rounInBounds(col - 1)
   });
+  const downRight = getPositionByCoords({
+    row: rounInBounds(row + 1),
+    col: rounInBounds(col + 1)
+  });
+  if (
+    isMainDiagonal(position) &&
+    mark === tiles[upLeft] &&
+    mark === tiles[downRight]
+  ) {
+    return [upLeft, position, downRight];
+  }
+
+  return null;
+};
+
+const calculateAntidiagonalWinningTiles = (tiles, position, mark) => {
+  const { row, col } = getCoordsByArrayPosition(position);
+
   const upRight = getPositionByCoords({
     row: rounInBounds(row - 1),
     col: rounInBounds(col + 1)
@@ -63,30 +101,48 @@ const calculateWinningTiles = (tiles, possibleWinningPosition, mark) => {
     row: rounInBounds(row + 1),
     col: rounInBounds(col - 1)
   });
-  const downRight = getPositionByCoords({
-    row: rounInBounds(row + 1),
-    col: rounInBounds(col + 1)
-  });
-
-  if (mark === tiles[left] && mark === tiles[right]) {
-    return [left, possibleWinningPosition, right];
-  }
-  if (mark === tiles[up] && mark === tiles[down]) {
-    return [up, possibleWinningPosition, down];
-  }
   if (
-    isMainDiagonal(possibleWinningPosition) &&
-    mark === tiles[upLeft] &&
-    mark === tiles[downRight]
-  ) {
-    return [upLeft, possibleWinningPosition, downRight];
-  }
-  if (
-    isAntidiagonal(possibleWinningPosition) &&
+    isAntidiagonal(position) &&
     mark === tiles[upRight] &&
     mark === tiles[downLeft]
   ) {
-    return [upRight, possibleWinningPosition, downLeft];
+    return [upRight, position, downLeft];
+  }
+
+  return null;
+};
+
+const calculateWinningTiles = (tiles, position, mark) => {
+  const rowWinningTiles = calculateRowWinningTiles(tiles, position, mark);
+  if (rowWinningTiles) {
+    return rowWinningTiles;
+  }
+
+  const columntWinningTiles = calculateColumnWinningTiles(
+    tiles,
+    position,
+    mark
+  );
+  if (columntWinningTiles) {
+    return columntWinningTiles;
+  }
+
+  const mainDiagonalWinningTiles = calculateMainDiagonalWinningTiles(
+    tiles,
+    position,
+    mark
+  );
+  if (mainDiagonalWinningTiles) {
+    return mainDiagonalWinningTiles;
+  }
+
+  const antidiagonalWinningTiles = calculateAntidiagonalWinningTiles(
+    tiles,
+    position,
+    mark
+  );
+  if (antidiagonalWinningTiles) {
+    return antidiagonalWinningTiles;
   }
 
   return null;
