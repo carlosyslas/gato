@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="screen score">
+  <div v-if="show" class="screen score" v-bind:class="className">
     <h2>Congratulations {{winner}}!</h2>
     <button v-on:click="createNewGame">Play again</button>
   </div>
@@ -7,13 +7,19 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { GAME_STATUS } from "../constants";
+import { GAME_STATUS, MARKS } from "../constants";
 
 export default {
   computed: {
     ...mapGetters(["winner", "gameStatus"]),
     show() {
       return this.gameStatus === GAME_STATUS.score || true;
+    },
+    className() {
+      return {
+        "winner-x": this.winner === MARKS.x,
+        "winner-o": this.winner === MARKS.o
+      };
     }
   },
   methods: mapActions(["createNewGame"])
@@ -22,12 +28,19 @@ export default {
 
 <style scoped>
 .score {
-  background: #e55b5b;
   padding: 20px;
   border-radius: 10px;
 }
 h2 {
   margin: 0;
+}
+
+.winner-x {
+  background: #e55b5b;
+}
+
+.winner-o {
+  background: #25ced1;
 }
 
 button {
